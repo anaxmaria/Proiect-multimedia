@@ -1,0 +1,95 @@
+body{
+    background-color: #d9fffe;
+    font-family:'Trebuchet MS';
+}
+
+h1{
+    text-align:center;
+    font-size:35px;
+    font-family:'Trebuchet MS';
+    color:#1ca3a3;
+    margin: 10px;
+    padding:10px;
+}
+
+section{
+    background-color:#e3fcfc;
+    border:1px solid #4ec7c7;
+}
+
+p{
+    text-align:center;
+    font-size: 25px;
+}
+
+#drawing_tools{
+    display:display-listitem;
+    align-items:left;
+    text-align:left;
+    float:left;
+    padding:10px;
+    margin:10px;
+}
+
+#settings{
+    transform: translateX(10%);
+}
+
+#drawing_forms{
+    margin-top:15px;
+    display:flex;
+}
+
+#forms1{
+    transform: translateX(30%);
+    float: left;
+}
+
+#forms2{
+    transform: translateX(30%);
+    float: right;
+}
+
+#btnPlus, #btnMinus{
+    background-color: transparent;
+}
+
+.refresh{
+    border:0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: #1c9191;
+    border-radius: 15px;
+    background-color: #b5e5e8;
+    transform: translateX(30%);
+    width: 130px;
+    margin-bottom: 10px;
+}
+
+.download{
+    border:0;
+    line-height: 2.5;
+    padding: 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: #1c9191;
+    border-radius: 15px;
+    background-color: #b5e5e8;
+    transform: translateX(30%);
+    width: 130px;
+    margin-bottom: 10px;
+}
+
+#drawing_canvas{
+    text-align:center;
+}
+
+canvas{
+    display: inline;
+    border:2px solid #4ec7c7;
+    margin:10px;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+
+    <title>Program de desenare raster</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="1_1081_IONITA_AnaMaria.css" />
+</head>
+
+
+<body>
+    <h1>Program de desenare raster</h1>
+
+    <section id="drawing_tools">
+        <p>Choose your settings</p>
+
+        <div id="settings">
+            <input type="color" id="stroke" name="stroke" value="#000000" />
+            <label for="stroke">Stroke colour</label> <br>
+
+            <input type="color" id="fill" name="fill" value="#000000" />
+            <label for="fill">Fill colour</label> <br>
+
+            <input type="color" id="background" name="background" value="#FFFFFF" />
+            <label for="background">Background colour</label> <br>
+        </div>
+
+        <div id="drawing_forms">
+            <div id="forms1">
+                <input type="image" src="media/brush.png" id="brush" data-tool="brush" width='50px' style="margin:2px;" /> <br>
+                <input type="image" src="media/line.png" id="line" data-tool="line" width='50px' style="margin:2px;" /> <br>
+                <input type="image" src="media/square.png" id="square" data-tool="square" width='50px' style="margin:2px;" /> <br>
+            </div>
+            <div id="forms2">
+                <input type="image" src="media/circle.png" id="circle"data-tool="circle" width='50px' style="margin:2px; transform:translateX(80%);" /> <br>
+                <input type="image" src="media/triangle.png" id="triangle" data-tool="triangle" width='50px' style="margin:2px; transform:translateX(80%);" /> <br>
+                <button id="btnPlus" class="btnPlus" style="margin:2px; transform:translateX(120%);"><i class="fas fa-plus"></i></button>
+                <button id="btnMinus" class="btnMinus" style="margin:2px; transform:translateX(100%);"><i class="fas fa-minus"></i></button>
+            </div>
+        </div> <br>
+
+        <input id="refresh" class="refresh" type="button" value="Refresh">
+
+        <form>
+            <div class="form-group">
+                <a href="#" id="download" download="myDrawing">
+                    <input class="download" type="button" value="Download">
+                </a>
+                <!--<label for="downloading" style="font-size:20px; margin-top:10px;">
+                    Download
+                </label>-->
+                <select id="downloading" class="form-control" style="background-color: #b5e5e8">
+                    <option selected disabled>Choose</option>
+                    <option value="jpg">JPEG</option>
+                    <option value="png">PNG</option>
+                    <option value="bmp">BMP</option>
+                    <option value="gif">GIF</option>
+                    <option value="svg">SVG</option>
+                </select>
+            </div>
+        </form>
+
+    </section>
+
+    <div id="drawing_canvas">
+        <canvas id="canvas" width="900" height="500">Not supported.</canvas>
+    </div>
+
+    <script src="1_1081_IONITA_AnaMaria.js"></script>
+</body>
+
+</html>
