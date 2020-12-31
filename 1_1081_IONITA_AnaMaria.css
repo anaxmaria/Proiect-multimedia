@@ -17,6 +17,12 @@ section{
     border:1px solid #4ec7c7;
 }
 
+#currentTool{
+    align-items:right;
+    text-align:right;
+    margin-right: 120px;
+}
+
 p{
     text-align:center;
     font-size: 25px;
@@ -90,6 +96,6 @@ p{
 
 canvas{
     display: inline;
-    border:2px solid #4ec7c7;
+    border:3px solid #4ec7c7;
     margin:10px;
 }

@@ -21,6 +21,9 @@
 
 <body>
     <h1>Program de desenare raster</h1>
+    <div id="currentTool">
+        Tool
+    </div>
 
     <section id="drawing_tools">
         <p>Choose your settings</p>
@@ -38,15 +41,22 @@
 
         <div id="drawing_forms">
             <div id="forms1">
-                <input type="image" src="media/brush.png" id="brush" onclick="clickedBrush()" width='50px' style="margin:2px;" /> <br>
-                <input type="image" src="media/line.png" id="line" onclick="clickedLine()" width='50px' style="margin:2px;" /> <br>
-                <input type="image" src="media/square.png" id="square" onclick="clickedSquare()" width='50px' style="margin:2px;" /> <br>
+                <input type="image" src="media/brush.png" id="brush" onclick="clickedBrush()" width='50px'
+                    style="margin:2px;" /> <br>
+                <input type="image" src="media/line.png" id="line" onclick="clickedLine()" width='50px'
+                    style="margin:2px;" /> <br>
+                <input type="image" src="media/square.png" id="square" onclick="clickedSquare()" width='50px'
+                    style="margin:2px;" /> <br>
             </div>
             <div id="forms2">
-                <input type="image" src="media/circle.png" id="circle" onclick="clickedCircle()" width='50px' style="margin:2px; transform:translateX(80%);" /> <br>
-                <input type="image" src="media/triangle.png" id="triangle" onclick="clickedTriangle()" width='50px' style="margin:2px; transform:translateX(80%);" /> <br>
-                <button id="btnPlus" class="btnPlus" style="margin:2px; transform:translateX(120%);"><i class="fas fa-plus"></i></button>
-                <button id="btnMinus" class="btnMinus" style="margin:2px; transform:translateX(100%);"><i class="fas fa-minus"></i></button>
+                <input type="image" src="media/circle.png" id="circle" onclick="clickedCircle()" width='50px'
+                    style="margin:2px; transform:translateX(80%);" /> <br>
+                <input type="image" src="media/triangle.png" id="triangle" onclick="clickedTriangle()" width='50px'
+                    style="margin:2px; transform:translateX(80%);" /> <br>
+                <button id="btnPlus" class="btnPlus" style="margin:2px; transform:translateX(120%);"><i
+                        class="fas fa-plus"></i></button>
+                <button id="btnMinus" class="btnMinus" style="margin:2px; transform:translateX(100%);"><i
+                        class="fas fa-minus"></i></button>
             </div>
         </div> <br>
 
@@ -61,7 +71,7 @@
                     Download
                 </label>-->
                 <select id="downloading" class="form-control" style="background-color: #b5e5e8">
-                    <option selected disabled>Choose</option>
+                    <option selected disabled value="choose">Choose</option>
                     <option value="jpg">JPEG</option>
                     <option value="png">PNG</option>
                     <option value="bmp">BMP</option>

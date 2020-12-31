@@ -2,7 +2,7 @@
 
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
-var currentTool = "brush"; //brush va fi selectat by default la inceput
+var currentTool = "brush"; 
 var defaultColour = "#000000";
 var backgroundColour = "#FFFFFF";
 var defaultLineWidth = 5;
@@ -11,69 +11,39 @@ var fillColour = defaultColour;
 var canvasWidth = 900;
 var canvasHeight = 500;
 
-// function changeTool(tool) {
-//     if (currentTool !== tool) {
-//         currentTool = tool;
-//         draw();
-//     }
-// }
 
-// function draw() {
-//     console.log(currentTool);
-//     switch (currentTool) {
-//         case "brush":
-//             console.log("yo");
-//             drawWithBrush();
-//             break;
-//         case "line":
-//             drawLine();
-//             console.log("pspsps");
-//             break;
-//         // case "square":
-//         //     drawSquare();
-//         //     break;
-//         // case "circle":
-//         //     drawCircle();
-//         //     break;
-//         // case "triangle":
-//         //     drawTriangle();
-//         //     break;
+window.addEventListener("load", () => {
+    //culoare stroke
+    var stroke = document.getElementById("stroke");
+    stroke.value = defaultColour;
+    stroke.addEventListener("change", (ev) => {
+        strokeColour = stroke.value = ev.target.value; //retine culoarea din colour picker
+    })
 
-//     }
+    //culoare fill
+    var fill = document.getElementById("fill");
+    fill.value = defaultColour;
+    fill.addEventListener("change", (ev) => {
+        fillColour = fill.value = ev.target.value;
+    })
 
-// }
-var switchingTools =
+    //culoare background
+    canvas.setAttribute("style", "background-color:#FFFFFF");
 
-    window.addEventListener("load", () => {
-        //culoare stroke
-        var stroke = document.getElementById("stroke");
-        stroke.value = defaultColour;
-        stroke.addEventListener("change", (ev) => {
-            strokeColour = stroke.value = ev.target.value; //retine culoarea din colour picker
-        })
+    var bkgColour = document.getElementById("background");
+    bkgColour.addEventListener("change", (ev) => {
+        backgroundColour = bkgColour.value = ev.target.value;
+        //document.getElementById("canvas").style.backgroundColor = bkgColour.value;
 
-        //culoare fill
-        var fill = document.getElementById("fill");
-        fill.value = defaultColour;
-        fill.addEventListener("change", (ev) => {
-            fillColour = fill.value = ev.target.value;
-        })
+        context.fillStyle = backgroundColour;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+    })
 
-        //culoare background
-        canvas.setAttribute("style", "background-color:#FFFFFF");
+    drawWithBrush();
+});
 
-        var bkgColour = document.getElementById("background");
-        bkgColour.addEventListener("change", (ev) => {
-            backgroundColour = bkgColour.value = ev.target.value;
-            //document.getElementById("canvas").style.backgroundColor = bkgColour.value;
-
-            context.fillStyle = backgroundColour;
-            context.fillRect(0, 0, canvas.width, canvas.height);
-        })
-
-        //drawWithBrush();
-    });
-
+var showCurrentTool = document.getElementById("currentTool");
+    
 
 
 //buton plus; mareste grosimea liniei
@@ -114,14 +84,11 @@ var nowPainting = false; //flag pentru a declansa desenarea
 
 //desenare cu brush
 
-// var btnBrush = document.getElementById("brush");
-// btnBrush.addEventListener("click", () => {
-//     currentTool = "brush";
-// })
 function drawWithBrush() {
 
     currentTool = "brush";
     console.log("pensula");
+    showCurrentTool.innerHTML = "Tool: brush";
 
     canvas.addEventListener("mousedown", startPainting);
     canvas.addEventListener("mouseup", stopPainting);
@@ -168,9 +135,6 @@ function sketch(ev) {
     context.stroke();
 }
 
-
-
-//desenare linie
 var dragging = false;
 var startLoc;
 var line;
@@ -187,6 +151,8 @@ function makeTheLine() {
     context.putImageData(line, 0, 0); //obiectul ImageData, coordonata x, coordonata y
 }
 
+//desenare linie
+
 // var btnLine = document.getElementById("line");
 // btnLine.addEventListener("click", () => {
 //     currentTool = "line";
@@ -194,6 +160,7 @@ function makeTheLine() {
 function drawLine() {
     console.log("linie");
     currentTool = "line";
+    showCurrentTool.innerHTML = "Tool: line";
 
     canvas.addEventListener("mousedown", startDrawingLine);
     canvas.addEventListener("mousemove", dragLine);
@@ -229,31 +196,149 @@ function doLine(position) {
     context.lineCap = "round";
     context.lineWidth = newLineWidth;
     context.strokeStyle = strokeColour;
-    
+
     context.beginPath();
     context.moveTo(startLoc.x, startLoc.y);
     context.lineTo(position.x, position.y);
     context.stroke();
 }
 
-
-
-
 //desenare patrat
 function drawSquare() {
     console.log("patrat");
+    currentTool = "square";
+    showCurrentTool.innerHTML = "Tool: square";
+
+    canvas.addEventListener("mousedown", startDrawingSquare);
+    canvas.addEventListener("mousemove", dragSquare);
+    canvas.addEventListener("mouseup", stopDrawingSquare);
+}
+
+function startDrawingSquare(ev) {
+    dragging = true;
+    startLoc = lineCoord(ev);
+    lineSnap();
+}
+
+function dragSquare(ev) {
+    var pos;
+    if (dragging == true) {
+        makeTheLine();
+        pos = lineCoord(ev);
+        square(pos);
+    }
+}
+
+function stopDrawingSquare(ev) {
+    dragging = false;
+    makeTheLine();
+    var pos;
+    pos = lineCoord(ev);
+    square(pos);
+}
+
+function square(position) {
+    context.strokeStyle = strokeColour;
+    context.lineWidth = newLineWidth;
+    context.fillStyle = fillColour;
+
+    context.beginPath();
+    context.rect(startLoc.x, startLoc.y, lineCoord(event).x, lineCoord(event).y);
+    context.stroke();
+    context.fill();
 }
 
 //desenare cerc
 function drawCircle() {
     console.log("cerc");
+    currentTool = "circle";
+    showCurrentTool.innerHTML = "Tool: circle";
 
+    canvas.addEventListener("mousedown", startDrawingCircle);
+    canvas.addEventListener("mousemove", dragCircle);
+    canvas.addEventListener("mouseup", stopDrawingCircle);
+}
+
+function startDrawingCircle(ev) {
+    dragging = true;
+    startLoc = lineCoord(ev);
+    lineSnap();
+}
+
+function dragCircle(ev) {
+    var pos;
+    if (dragging == true) {
+        makeTheLine();
+        pos = lineCoord(ev);
+        circle(pos);
+    }
+}
+
+function stopDrawingCircle(ev) {
+    dragging = false;
+    makeTheLine();
+    var pos;
+    pos = lineCoord(ev);
+    circle(pos);
+}
+
+function circle(position) {
+    var radius;
+    radius = Math.sqrt(Math.pow((startLoc.x - position.x), 2) + Math.pow((startLoc.y - position.y), 2)); //functia Math.pow da baza si exponentul unei puteri
+
+    context.strokeStyle = strokeColour;
+    context.lineWidth = newLineWidth;
+    context.fillStyle = fillColour;
+    context.beginPath();
+    context.arc(startLoc.x, startLoc.y, radius, 0,2*Math.PI, false); //coord x a centrului, coord y a cercului, raza, starting angle, ending angle, counterclockwise
+    context.stroke();
+    context.fill();
 }
 
 //desenare triunghi
 function drawTriangle() {
     console.log("triunghi");
+    currentTool = "triangle";
+    showCurrentTool.innerHTML = "Tool: triangle";
 
+    canvas.addEventListener("mousedown", startDrawingTriangle);
+    canvas.addEventListener("mousemove", dragTriangle);
+    canvas.addEventListener("mouseup", stopDrawingTriangle);
+}
+
+function startDrawingTriangle(ev) {
+    dragging = true;
+    startLoc = lineCoord(ev);
+    lineSnap();
+}
+
+function dragTriangle(ev){
+    var pos;
+    if(dragging == true){
+        makeTheLine();
+        pos = lineCoord(ev);
+        triangle(pos);
+    }
+}
+
+function stopDrawingTriangle(ev){
+    dragging = false;
+    makeTheLine();
+    var pos = lineCoord(ev);
+    triangle(pos);
+}
+
+function triangle(position){
+    context.strokeStyle = strokeColour;
+    context.lineWidth = newLineWidth;
+    context.fillStyle = fillColour;
+    context.beginPath();
+    context.moveTo(startLoc.x, startLoc.y);
+    context.lineTo(startLoc.x,lineCoord(event).y);
+    context.lineTo(lineCoord(event).x,startLoc.y);
+    context.closePath();
+    context.stroke();
+    context.fill();
 }
 
 
@@ -264,6 +349,18 @@ function clickedBrush() {
     canvas.removeEventListener("mousedown", startDrawingLine);
     canvas.removeEventListener("mousemove", dragLine);
     canvas.removeEventListener("mouseup", stopDrawingLine);
+
+    canvas.removeEventListener("mousedown", startDrawingSquare);
+    canvas.removeEventListener("mousemove", dragSquare);
+    canvas.removeEventListener("mouseup", stopDrawingSquare);
+
+    canvas.removeEventListener("mousedown", startDrawingCircle);
+    canvas.removeEventListener("mousemove", dragCircle);
+    canvas.removeEventListener("mouseup", stopDrawingCircle);
+
+    canvas.removeEventListener("mousedown", startDrawingTriangle);
+    canvas.removeEventListener("mousemove", dragTriangle);
+    canvas.removeEventListener("mouseup", stopDrawingTriangle);
 }
 
 function clickedLine() {
@@ -272,21 +369,78 @@ function clickedLine() {
     canvas.removeEventListener("mousedown", startPainting);
     canvas.removeEventListener("mouseup", stopPainting);
     canvas.removeEventListener("mousemove", sketch);
+
+    canvas.removeEventListener("mousedown", startDrawingSquare);
+    canvas.removeEventListener("mousemove", dragSquare);
+    canvas.removeEventListener("mouseup", stopDrawingSquare);
+
+    canvas.removeEventListener("mousedown", startDrawingCircle);
+    canvas.removeEventListener("mousemove", dragCircle);
+    canvas.removeEventListener("mouseup", stopDrawingCircle);
+
+    canvas.removeEventListener("mousedown", startDrawingTriangle);
+    canvas.removeEventListener("mousemove", dragTriangle);
+    canvas.removeEventListener("mouseup", stopDrawingTriangle);
 }
 
 function clickedSquare() {
     window.addEventListener("click", drawSquare());
 
+    canvas.removeEventListener("mousedown", startPainting);
+    canvas.removeEventListener("mouseup", stopPainting);
+    canvas.removeEventListener("mousemove", sketch);
+
+    canvas.removeEventListener("mousedown", startDrawingLine);
+    canvas.removeEventListener("mousemove", dragLine);
+    canvas.removeEventListener("mouseup", stopDrawingLine);
+
+    canvas.removeEventListener("mousedown", startDrawingCircle);
+    canvas.removeEventListener("mousemove", dragCircle);
+    canvas.removeEventListener("mouseup", stopDrawingCircle);
+
+    canvas.removeEventListener("mousedown", startDrawingTriangle);
+    canvas.removeEventListener("mousemove", dragTriangle);
+    canvas.removeEventListener("mouseup", stopDrawingTriangle);
 }
 
 function clickedCircle() {
     window.addEventListener("click", drawCircle());
 
+    canvas.removeEventListener("mousedown", startPainting);
+    canvas.removeEventListener("mouseup", stopPainting);
+    canvas.removeEventListener("mousemove", sketch);
+
+    canvas.removeEventListener("mousedown", startDrawingLine);
+    canvas.removeEventListener("mousemove", dragLine);
+    canvas.removeEventListener("mouseup", stopDrawingLine);
+
+    canvas.removeEventListener("mousedown", startDrawingSquare);
+    canvas.removeEventListener("mousemove", dragSquare);
+    canvas.removeEventListener("mouseup", stopDrawingSquare);
+
+    canvas.removeEventListener("mousedown", startDrawingTriangle);
+    canvas.removeEventListener("mousemove", dragTriangle);
+    canvas.removeEventListener("mouseup", stopDrawingTriangle);
 }
 
 function clickedTriangle() {
     window.addEventListener("click", drawTriangle());
 
+    canvas.removeEventListener("mousedown", startPainting);
+    canvas.removeEventListener("mouseup", stopPainting);
+    canvas.removeEventListener("mousemove", sketch);
+
+    canvas.removeEventListener("mousedown", startDrawingLine);
+    canvas.removeEventListener("mousemove", dragLine);
+    canvas.removeEventListener("mouseup", stopDrawingLine);
+
+    canvas.removeEventListener("mousedown", startDrawingSquare);
+    canvas.removeEventListener("mousemove", dragSquare);
+    canvas.removeEventListener("mouseup", stopDrawingSquare);
+
+    canvas.removeEventListener("mousedown", startDrawingCircle);
+    canvas.removeEventListener("mousemove", dragCircle);
+    canvas.removeEventListener("mouseup", stopDrawingCircle);
 }
 //-----------------------DESENARE-----------------------
 
@@ -295,6 +449,10 @@ function clickedTriangle() {
 var btnDownload = document.getElementById("download");
 var dropDownList = document.getElementById("downloading");
 btnDownload.addEventListener("click", () => {
+    if (dropDownList.value == "choose") {
+        alert("Alegeti modalitatea de download.");
+    }
+
     if (dropDownList.value == "jpg") {
         btnDownload.href = canvas.toDataURL();
         btnDownload.download = "myDrawing.jpeg";
