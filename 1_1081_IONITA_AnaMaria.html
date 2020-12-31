@@ -38,13 +38,13 @@
 
         <div id="drawing_forms">
             <div id="forms1">
-                <input type="image" src="media/brush.png" id="brush" data-tool="brush" width='50px' style="margin:2px;" /> <br>
-                <input type="image" src="media/line.png" id="line" data-tool="line" width='50px' style="margin:2px;" /> <br>
-                <input type="image" src="media/square.png" id="square" data-tool="square" width='50px' style="margin:2px;" /> <br>
+                <input type="image" src="media/brush.png" id="brush" onclick="clickedBrush()" width='50px' style="margin:2px;" /> <br>
+                <input type="image" src="media/line.png" id="line" onclick="clickedLine()" width='50px' style="margin:2px;" /> <br>
+                <input type="image" src="media/square.png" id="square" onclick="clickedSquare()" width='50px' style="margin:2px;" /> <br>
             </div>
             <div id="forms2">
-                <input type="image" src="media/circle.png" id="circle"data-tool="circle" width='50px' style="margin:2px; transform:translateX(80%);" /> <br>
-                <input type="image" src="media/triangle.png" id="triangle" data-tool="triangle" width='50px' style="margin:2px; transform:translateX(80%);" /> <br>
+                <input type="image" src="media/circle.png" id="circle" onclick="clickedCircle()" width='50px' style="margin:2px; transform:translateX(80%);" /> <br>
+                <input type="image" src="media/triangle.png" id="triangle" onclick="clickedTriangle()" width='50px' style="margin:2px; transform:translateX(80%);" /> <br>
                 <button id="btnPlus" class="btnPlus" style="margin:2px; transform:translateX(120%);"><i class="fas fa-plus"></i></button>
                 <button id="btnMinus" class="btnMinus" style="margin:2px; transform:translateX(100%);"><i class="fas fa-minus"></i></button>
             </div>
@@ -75,9 +75,13 @@
 
     <div id="drawing_canvas">
         <canvas id="canvas" width="900" height="500">Not supported.</canvas>
+        <!--<canvas id="drawCanvas" width="900" height="500">Not supported.</canvas>-->
     </div>
 
     <script src="1_1081_IONITA_AnaMaria.js"></script>
+    <!--<script>
+        draw();
+    </script>-->
 </body>
 
 </html>
