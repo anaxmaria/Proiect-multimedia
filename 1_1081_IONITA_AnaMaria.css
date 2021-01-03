@@ -8,8 +8,8 @@ h1{
     font-size:35px;
     font-family:'Trebuchet MS';
     color:#1ca3a3;
-    margin: 10px;
-    padding:10px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 section{
@@ -17,7 +17,7 @@ section{
     border:1px solid #4ec7c7;
 }
 
-#currentTool{
+#currentTool, #lineWidth{
     align-items:right;
     text-align:right;
     margin-right: 120px;
