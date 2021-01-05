@@ -174,8 +174,6 @@ function drawLine() {
 }
 
 function startDrawingLine(ev) {
-    // context.strokeStyle = strokeColour;
-    // context.lineWidth = newLineWidth;
     dragging = true;
     startLoc = lineCoord(ev); //preiau coordonatele la mousedown
     lineSnap();
@@ -493,8 +491,10 @@ btnDownload.addEventListener("click", () => {
     }
 
     if (dropDownList.value == "png") {
-        var dataURL = canvas.toDataURL("image/png");
-        btnDownload.href = dataURL;
+        // var dataURL = canvas.toDataURL("image/png");
+        // btnDownload.href = dataURL;
+        btnDownload.href = canvas.toDataURL();
+        btnDownload.download = "myDrawing.png";
     }
 
     if (dropDownList.value == "bmp") {
